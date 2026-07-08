@@ -1,0 +1,34 @@
+name: Tagger
+
+on:
+  workflow_dispatch:
+    inputs:
+      script_args:
+        description: 'Arguments for the script (major, minor, patch), only run after main branch built was successful'
+        required: true
+        default: 'minor'
+
+jobs:
+  tagger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.ACTIONS_REPO_WRITER_PAT }} # set in dedicated service user account
+
+      - name: Tag me
+        run: |
+          chmod +x ./tagme.sh
+          ./tagme.sh ${{ github.event.inputs.script_args }}
+
+      - name: Push Git Tag
+        run: |
+          git config user.email "HibiskusHub@blume2000.de"
+          git config user.name "HibiskusHub"
+          jq --arg version "$new_tag" '.version = $version' package.json > tmp.json && mv tmp.json package.json
+          git commit -am "Bump version to $new_tag"
+          git push origin main
+          git tag $new_tag
+          git push origin $new_tag
