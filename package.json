@@ -1,5 +1,5 @@
 {
-  "name": "pdf-lib",
+  "name": "@Blume-2000-SE/pdf-lib",
   "version": "1.17.1",
   "description": "Create and modify PDF files with JavaScript",
   "author": "Andrew Dillon <andrew.dillon.j@gmail.com>",
@@ -120,9 +120,9 @@
   "license": "MIT",
   "private": false,
   "homepage": "https://pdf-lib.js.org",
-  "repository": "git+https://github.com/Hopding/pdf-lib.git",
+  "repository": "git+https://github.com/Blume-2000-SE//pdf-lib.git",
   "bugs": {
-    "url": "https://github.com/Hopding/pdf-lib/issues"
+    "url": "https://github.com/Blume-2000-SE/pdf-lib/issues"
   },
   "keywords": [
     "pdf-lib",
