@@ -115,6 +115,7 @@ export interface LayoutTextOptions {
   fontSize?: number;
   font: PDFFont;
   bounds: LayoutBounds;
+  trim: boolean;
 }
 
 export interface MultilineTextLayout {
@@ -161,7 +162,7 @@ const splitOutLines = (
 
 export const layoutMultilineText = (
   text: string,
-  { alignment, fontSize, font, bounds }: LayoutTextOptions,
+  { alignment, fontSize, font, bounds, trim }: LayoutTextOptions,
 ): MultilineTextLayout => {
   const lines = lineSplit(cleanText(text));
 
@@ -208,7 +209,7 @@ export const layoutMultilineText = (
 
       // Only trim lines that we had to split ourselves. So we won't trim lines
       // that the user provided themselves with whitespace.
-      prevRemainder = remainder?.trim();
+      prevRemainder = trim ? remainder?.trim() : remainder;
     }
   }
 
