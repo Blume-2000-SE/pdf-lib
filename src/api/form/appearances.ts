@@ -105,7 +105,9 @@ export type AppearanceProviderFor<T extends PDFField> =
 export const normalizeAppearance = <T>(
   appearance: T | AppearanceMapping<T>,
 ): AppearanceMapping<T> => {
-  if ('normal' in appearance) return appearance;
+  if (appearance !== null && typeof appearance === 'object' && 'normal' in appearance) {
+    return appearance as AppearanceMapping<T>;
+  }
   return { normal: appearance };
 };
 
@@ -459,6 +461,7 @@ export const defaultTextFieldAppearanceProvider: AppearanceProviderFor<PDFTextFi
       fontSize: widgetFontSize ?? fieldFontSize,
       font,
       bounds,
+      trim: true
     });
     textLines = layout.lines;
     fontSize = layout.fontSize;
@@ -624,6 +627,7 @@ export const defaultOptionListAppearanceProvider: AppearanceProviderFor<PDFOptio
     fontSize: widgetFontSize ?? fieldFontSize,
     font,
     bounds,
+    trim: true
   });
 
   const selectedLines: number[] = [];

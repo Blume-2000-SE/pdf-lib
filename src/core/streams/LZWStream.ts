@@ -105,6 +105,7 @@ class LZWStream extends DecodeStream {
         continue;
       } else {
         this.eof = true;
+        // @ts-ignore
         delete this.lzwState;
         break;
       }
